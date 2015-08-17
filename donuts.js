@@ -5,10 +5,12 @@ var DonutShop = function(location, minCust, maxCust, avgDonuts, hours) {
   this.avgDonuts = avgDonuts;
   this.hours = hours;
 
+  //method to calculate number of donuts in one hour
   this.numDonutsPerHour = function() {
     return Math.floor((Math.random() * (this.maxCust - this.minCust) + this.minCust) * this.avgDonuts);
   };
 
+  //method to iterate over numDonutsPerHour once per hour that 'location' is open
   this.numDonutsPerDay = function() {
     var totalDonuts = 0;
     for (var i = 0; i < this.hours; i++) {
@@ -16,21 +18,36 @@ var DonutShop = function(location, minCust, maxCust, avgDonuts, hours) {
     }
     return totalDonuts;
   };
+
+  //method to show a rough estimate of how many donuts get sold per hour that the shop is open
+  this.avgDonutsPerHour = function() {
+    return Math.floor(this.numDonutsPerDay() / this.hours);
+  };
 };
 
 var DonutMaster = function() {
   this.shops = [];
 
+  //method to add DonutShop objects to this.shops array for easy access
   this.addShop = function(location, minCust, maxCust, avgDonuts, hours)  {
       this.shops.push(new DonutShop(location, minCust, maxCust, avgDonuts, hours));
   };
 
+  //method to grab 'location', numDonutsPerHour and numDonutsPerDay numbers for all shops
   this.generateReport = function() {
     var report = '';
     for (var i = 0; i < this.shops.length; i++) {
-      report += this.shops[i].location +' location will sell ' + this.shops[i].numDonutsPerHour() + ' donuts in an hour or ' + this.shops[i].numDonutsPerDay() + ' donuts in a day. ';
+      report += this.shops[i].location +' location will sell about ' + this.shops[i].avgDonutsPerHour() + ' donuts in an hour or ' + this.shops[i].numDonutsPerDay() + ' donuts in a day. ';
     }
     return report;
+  };
+
+  this.shopReport = function() {
+    var report = '';
+    for (var prop in DonutShop) {
+      if (DonutShop.hasOwnProperty(prop))
+      console.log(DonutShop[location]);
+    };
   };
 };
 
