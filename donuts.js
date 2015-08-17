@@ -22,14 +22,14 @@ var DonutMaster = function() {
   this.shops = [];
 
   this.addShop = function(location, minCust, maxCust, avgDonuts, hours)  {
-      this.shops.push(new DonutShop(location, minCust, maxCust, avgDonuts, hours))
+      this.shops.push(new DonutShop(location, minCust, maxCust, avgDonuts, hours));
   };
 
   this.generateReport = function() {
     var report = '';
     for (var i = 0; i < this.shops.length; i++) {
       report += this.shops[i].location +' location will sell ' + this.shops[i].numDonutsPerHour() + ' donuts in an hour or ' + this.shops[i].numDonutsPerDay() + ' donuts in a day. ';
-    };
+    }
     return report;
   };
 };
