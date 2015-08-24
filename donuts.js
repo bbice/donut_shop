@@ -42,25 +42,44 @@ var DonutMaster = function() {
     return report;
   };
 
-  this.shopReport = function() {
+  this.shopReport = function(location) {
     var report = '';
-    for (var prop in DonutShop) {
-      if (DonutShop.hasOwnProperty(prop))
-      console.log(DonutShop[location]);
-    };
-  };
+    for (var i = 0; i < shops.length; i++) {
+      if (toLowerCase(location) == [i].location) {
+        report += this.shops[i].location +' location will sell about ' + this.shops[i].avgDonutsPerHour() + ' donuts in an hour or ' + this.shops[i].numDonutsPerDay() + ' donuts in a day. ';
+      } else {
+        report = 'That\'s not a location!';
+      }
+      return report;
+  }
+ };
 };
 
+//creating new DonutMaster object
 var topPot = new DonutMaster();
 
-var dunkinDonuts = new DonutMaster();
-
-var krispyKreme = new DonutMaster();
-
-dunkinDonuts.addShop('Downtown', 4, 79, 6, 12);
-
+//adding new Shops to topPot.shops
 topPot.addShop('Downtown', 8, 43, 4.5, 12);
 topPot.addShop('Capitol Hill', 4, 37, 2, 9);
 topPot.addShop('South Lake Union', 9, 23, 6.33, 8);
 topPot.addShop('Wedgewood', 2, 28, 1.25, 18);
 topPot.addShop('Ballard', 8, 58, 3.75, 18);
+topPot.addShop('queen anne', 7, 34, 2, 9);
+
+
+//jQuery function to dynamically display a table
+$(function() {
+  $('.myButton').one('click', function() {
+    $('#tableDiv').fadeIn('fast');
+    for (var i = 0; i < topPot.shops.length; i++) {
+      $('#myTable').append('<tr class="container">' + '<td class="shopLocation">' + topPot.shops[i].location + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].avgDonutsPerHour() + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].numDonutsPerDay() + '</td>' + '</tr>');
+    }
+    //showing and hiding table data
+    $('.tableNumbers').hide();
+    $('.shopLocation').each(function() {
+      $(this).on('click', function() {
+        $('.tableNumbers').slideToggle(800);
+      });
+    });
+  });
+});
