@@ -72,13 +72,13 @@ $(function() {
   $('.myButton').one('click', function() {
     $('#tableDiv').fadeIn('fast');
     for (var i = 0; i < topPot.shops.length; i++) {
-      $('#myTable').append('<tr class="container">' + '<td class="shopLocation">' + topPot.shops[i].location + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].avgDonutsPerHour() + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].numDonutsPerDay() + '</td>' + '</tr>');
+      $('#myTable').append('<tr id=" '+ i + '" class="container">' + '<td class="shopLocation">' + topPot.shops[i].location + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].avgDonutsPerHour() + '</td>' + '<td class="tableNumbers">' + topPot.shops[i].numDonutsPerDay() + '</td>' + '</tr>');
     }
     //showing and hiding table data
     $('.tableNumbers').hide();
-    $('.shopLocation').each(function() {
+    $('.container').each(function() {
       $(this).on('click', function() {
-        $('.tableNumbers').slideToggle(800);
+        $(this).children('.tableNumbers').slideToggle(10);
       });
     });
   });
